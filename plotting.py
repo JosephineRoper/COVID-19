@@ -32,9 +32,9 @@ deaths_array = np.loadtxt(folder + deathsname,delimiter=",",skiprows=1,usecols=c
 labels_array = np.loadtxt(folder + casesname,dtype=str,delimiter=",",skiprows=1,usecols=(0,1,2,3))
 
 # choose parameters
-countryselection = "Australia"
-separate = 0 #1 for separate graphs, 0 for combined
-scale = "log" #log or linear
+countryselection = "Italy"
+separate = 1 #1 for separate graphs, 0 for combined
+scale = "linear" #log or linear
 
 # aggregate country data
 rows=set(index[0] for index, value in np.ndenumerate(cases_array) if labels_array[index[0],1]==countryselection)
