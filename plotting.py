@@ -32,7 +32,7 @@ deaths_array = np.loadtxt(folder + deathsname,delimiter=",",skiprows=1,usecols=c
 labels_array = np.loadtxt(folder + casesname,dtype=str,delimiter=",",skiprows=1,usecols=(0,1,2,3))
 
 # choose parameters
-countryselection = "Italy"
+countryselection = "Australia"
 separate = 1 #1 for separate graphs, 0 for combined
 scale = "linear" #log or linear
 
@@ -80,5 +80,18 @@ def my_plotter(ax, datax, datay, param_dict):
     return
 
 
-fig, ax = plt.subplots(1,1+separate, figsize=(40,5))
-my_plotter(ax, dates, (casesum, deathsum), {'marker': 'x','number':separate, 'scale':scale})   
+fig, axs = plt.subplots(1,1+separate, figsize=(40,5))
+my_plotter(axs, dates, (casesum, deathsum), {'marker': 'x','number':separate, 'scale':scale})   
+
+# this is an inset axes over the main axes
+right_inset_ax = fig.add_axes([.2, .6, .2, .2], facecolor='k')
+right_inset_ax.axis('off')
+right_inset_ax.table(cellText=[casesum[l-7:l-4],], colLabels=dates[l-7:l-4],loc='centre')
+
+# this is another inset axes over the main axes
+left_inset_ax = fig.add_axes([.6, .6, .2, .2], facecolor='k')
+left_inset_ax.plot(t[:len(r)], r)
+left_inset_ax.set_title('Impulse response')
+left_inset_ax.set_xlim(0, 0.2)
+left_inset_ax.set_xticks([])
+left_inset_ax.set_yticks([])
